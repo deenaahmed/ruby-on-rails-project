@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @lecture.content %>
+</p>
+
+<p>
+  <strong>Attachement:</strong>
+  <%= @lecture.attachement %>
+</p>
+<% if(current_user.lectures.include?(@lecture))%>
+<td><%= link_to 'unlike', unlike_lecture_url(@lecture) %></td>
+<% else %>
+<td><%= link_to 'like', like_lecture_url(@lecture) %></td>
+<% end %>
+<br/>
+<br/>
+<p>
+  <strong>Likes</strong>
+  <% @lecture.users.each do |user| %>
+ <li><%= user.name %></li>
+  <%  end %>
+</p>
+<br/>
+<br/>
+
+<div id="thread_1_div" class="thread" >
+      <a data-remote="true" href="/commontator/threads/1">Show Comments </a>
+</div>
+
+<br/>
+<br/>
+<%= link_to 'Edit', edit_lecture_path(@lecture) %> |
+<%= link_to 'Back', lectures_path %>

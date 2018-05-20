@@ -1,0 +1,38 @@
+<%= form_with(model: lecture, :html=>{:multipart=>true}) do |form| %>
+  <% if lecture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lecture.errors.count, "error") %> prohibited this lecture from being saved:</h2>
+
+      <ul>
+      <% lecture.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :lecture_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :attachement %>
+    <%= form.file_field :attachement%>
+  </div>
+
+  <div class="field">
+  <%= form.label :course_id %>
+  <%= form.select :course_id, options_for_select(Course.all.map{|s|[s.title, s.id]}) %>
+  </div>
+
+  <div class="field">
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
